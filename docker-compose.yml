@@ -1,14 +1,12 @@
 version: '3.9'
 services:
-    database:
-        container_name: db_for_learn
-        build:
-            context: .
-            dockerfile: Dockerfile
-        env_file:
-            - .env
-        ports:
-            - '${MYSQL_PORT}:${MYSQL_PORT}'
-        volumes:
-            - .:/opt/app/api
-        command: ['--log_bin_trust_function_creators=1']
+  db:
+    image: mcr.microsoft.com/mssql/server:2019-latest-arm64
+    container_name: sqlserver
+    environment:
+      SA_PASSWORD: "Hai1234@"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
+    volumes:
+      - ./data:/var/opt/mssql/data
